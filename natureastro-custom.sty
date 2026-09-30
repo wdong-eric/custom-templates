@@ -271,6 +271,10 @@
     {\fontsize{20.5}{23.0}\selectfont\bfseries\raggedright \@title\par}
     \vspace{3.5mm}
     {\fontsize{10.1}{12.3}\selectfont\bfseries\raggedright \@author\par}
+    \ifx\@date\@empty\else
+    \vspace{2mm}
+    {\fontsize{9.0}{11.0}\selectfont\mdseries\raggedright \@date\par}
+    \fi
     \vspace{4.5mm}
     {\fontsize{9.0}{11.0}\selectfont\bfseries\raggedright \@abstract\par}
   \end{minipage}
