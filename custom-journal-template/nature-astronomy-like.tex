@@ -1,5 +1,5 @@
 \documentclass[10pt,a4paper,twocolumn]{article}
-\usepackage[revtexheadings]{natureastro-custom}
+\usepackage[revtexheadings=section,authoryear]{natureastro-custom}
 
 \title{A Nature Astronomy-inspired manuscript in \LaTeX}
 \author{First Author$^{1}$, Second Author$^{2}$ \& Third Author$^{1}$}
@@ -7,7 +7,7 @@
 % \runninghead{First Author et al.}
 
 \begin{abstract}
-  This unofficial template is intended for writing manuscripts, notes and polished preprints in a visual style inspired by Nature Astronomy. It keeps the useful parts of the published layout---a full-width title and abstract, restrained sans-serif typography, compact two-column text, superscript numerical citations and concise captions---without production-only metadata such as received, accepted or publication dates, DOI information or volume details.
+  This unofficial template is intended for writing manuscripts, notes and polished preprints in a visual style inspired by Nature Astronomy. The current setup combines Palatino-style serif text and matching mathematics with compact two-column text, REVTeX-inspired section headings, author--year citations and concise captions. A title, author and abstract block sits above both columns. Journal production metadata such as received, accepted or publication dates, DOI information and volume details are omitted.
 \end{abstract}
 
 \affiliations{%
@@ -18,18 +18,19 @@ $^{2}$Institute for Astronomy, Example University, Example City, Country.}
 \begin{document}
 \maketitle
 
-A manuscript can begin directly with the scientific narrative rather than with a heading labelled ``Introduction''. The opening paragraphs should establish the context, identify the unresolved problem and state the contribution succinctly. Citations appear as numerical superscripts in order of appearance.\cite{einstein1916,shakura1973}
+A manuscript can begin directly with the scientific narrative rather than with a heading labelled ``Introduction''. The opening paragraphs should establish the context, identify the unresolved problem and state the contribution succinctly. The selected \texttt{authoryear} option enables author--year citations through \texttt{natbib}; use \verb|\citep| for parenthetical citations \citep{DongMelatos2024,DongMelatos2025,DongEtAl2026} and \verb|\citet| for textual citations, as in \citet{DongMelatos2024}. The reference list is generated from \texttt{examples.bib} with the \texttt{aasjournalv7} BibTeX style.
 
 This file is deliberately a clean authoring template rather than a simulation of the journal's production workflow. Its purpose is to make drafts pleasant to read while keeping the source conventional and easy to adapt later.
 
+The \texttt{authoryear} option enables author--year citations; omitting it gives numerical superscripts. Use \texttt{natureheadings} for the default heading style. To apply REVTeX styling through a chosen level, set \texttt{revtexheadings=} to \texttt{section}, \texttt{subsection} or \texttt{subsubsection}. The shorthand \texttt{revtexheadings} styles all three levels.
+
 \section{Results}
 \subsection{A compact two-column hierarchy}
-The principal body is set in two columns with narrow gutters. Section headings are compact and bold. Displayed equations use conventional mathematical typography while the surrounding prose remains sans serif:
+The principal body is set in two columns. Sections have centred, bold, uppercase headings with Roman numerals. Subsections remain left-aligned and bold, and subsubsections left-aligned and italic, both without displayed numbers. Text and mathematics use matching Palatino-style fonts. A simple polynomial illustrates a single-column equation:
 \begin{equation}
-  \frac{\mathrm{d}\boldsymbol{x}}{\mathrm{d}t}
-  = \boldsymbol{f}(\boldsymbol{x},t) + \boldsymbol{\eta}(t),
+  f(x) = ax^2 + bx + c,
 \end{equation}
-where $\boldsymbol{\eta}$ denotes a stochastic forcing term.
+where $a$, $b$ and $c$ are constant coefficients.
 
 For an equation that needs both columns, the \texttt{widetext} environment
 interrupts the two-column flow with a full-width display:
@@ -37,20 +38,15 @@ interrupts the two-column flow with a full-width display:
   \begin{equation}
     \label{eq:wide}
     \begin{aligned}
-      \vect{x}(t)
-      &= \exp\!\left[\mat{A}(t-t_0)\right]\vect{x}(t_0)
-      + \int_{t_0}^{t}\exp\!\left[\mat{A}(t-s)\right]\vect{\eta}(s)\,\mathrm{d}s,\\
-      \mat{C}(t,t')
-      &= \exp\!\left[\mat{A}(t-t_0)\right]\mat{C}_0
-      \exp\!\left[\mat{A}^{\mathsf{T}}(t'-t_0)\right]
-      + \int_{t_0}^{\min(t,t')}\exp\!\left[\mat{A}(t-s)\right]
-      \mat{Q}\exp\!\left[\mat{A}^{\mathsf{T}}(t'-s)\right]\,\mathrm{d}s.
+      I &= \int_{x_0}^{x_1} f(x)\,\mathrm{d}x
+      = \int_{x_0}^{x_1} \left(ax^2 + bx + c\right)\,\mathrm{d}x,\\
+      &= \left[\frac{a}{3}x^3 + \frac{b}{2}x^2 + cx\right]_{x_0}^{x_1}
+      = \frac{a}{3}\left(x_1^3-x_0^3\right)
+      + \frac{b}{2}\left(x_1^2-x_0^2\right) + c\left(x_1-x_0\right).
     \end{aligned}
   \end{equation}
 \end{widetext}
-Here $\mat{A}$ is a constant linear evolution matrix, $\mat{C}_0$ is the
-initial covariance, and $\mat{Q}$ is the covariance intensity of zero-mean
-white noise independent of the initial state, with $t,t'\geq t_0$.
+Here $I$ is the definite integral of $f(x)$ between $x_0$ and $x_1$.
 Text resumes in two columns after equation~\ref{eq:wide}; the short rules
 mark the transition into and out of the wide display.
 
@@ -64,16 +60,17 @@ mark the transition into and out of the wide display.
 Figure~\ref{fig:example} illustrates the default single-column treatment. For a figure spanning the whole page width, use the standard \texttt{figure*} environment.
 
 \subsection{Tables}
+Tables use compact text and simple horizontal rules provided by \texttt{booktabs}. The example lists illustrative coefficients for the polynomial above; use \texttt{table*} for a table spanning both columns.
 \begin{table}[t]
-  \caption{Example compact table}
+  \caption{Illustrative polynomial coefficients}
   \centering
-  \begin{tabular}{lcc}
+  \begin{tabular}{lccc}
     \toprule
-    Quantity & Symbol & Value \\
+    Example & $a$ & $b$ & $c$ \\
     \midrule
-    Spin frequency & $\nu$ & 100\,Hz \\
-    Timescale & $\tau$ & 10\,d \\
-    Fraction & $x$ & 0.10 \\
+    A & 1 & 0 & 0 \\
+    B & 1 & 2 & 1 \\
+    C & 2 & $-1$ & 3 \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -99,14 +96,8 @@ F.A. conceived the study. F.A. and S.A. performed the analysis. All authors disc
 \competinginterests
 The authors declare no competing interests.
 
-\begin{thebibliography}{9}
-  \bibitem{einstein1916}
-  Einstein, A. The foundation of the general theory of relativity. \textit{Ann. Phys.} \textbf{49}, 769--822 (1916).
-
-  \bibitem{shakura1973}
-  Shakura, N. I. \& Sunyaev, R. A. Black holes in binary systems. Observational appearance. \textit{Astron. Astrophys.} \textbf{24}, 337--355 (1973).
-\end{thebibliography}
-% \bibliographystyle{aasjournalv7}
+\bibliography{examples}% Produces the bibliography via BibTeX.
+\bibliographystyle{aasjournalv7}
 
 \makeendmatter
 \end{document}
