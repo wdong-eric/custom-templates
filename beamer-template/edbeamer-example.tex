@@ -1,0 +1,102 @@
+\documentclass{beamer}
+\usepackage{edbeamer}
+
+\usepackage[most]{tcolorbox}
+\newtcolorbox{myshadowbox}[1][]{
+  enhanced,
+  colback=gray!10,
+  colframe=black,
+  boxrule=0.5pt,
+  drop shadow,
+  left=2pt, right=2pt, top=2pt, bottom=2pt,
+  valign=center,
+  #1
+}
+\newcommand{\myfavoriteat}{{\fontfamily{ptm}\selectfont @}}
+% if movie support is needed
+% \usepackage{media9}
+
+% For section-level iteration, uncomment one lecture label:
+% \includeonlylecture{frontmatter,non-glitch,effective-2c,data}
+% \includeonlylecture{effective-2c,individuals,population,interpretation}
+% Available lectures: frontmatter, non-glitch, effective-2c, data, individuals,
+% population, interpretation, takeaways, backup.
+% Or set \lecturefilter from the command line.
+\ifdefined\lecturefilter
+\expandafter\includeonlylecture\expandafter{\lecturefilter}
+\fi
+%
+% For single-slide iteration, set \fastcompiletrue and uncomment a labelled frame.
+% \includeonlyframes{results-flash}
+
+\setbeameroption{hide notes} % Only slides
+% \setbeameroption{show only notes} % Only notes
+% \setbeameroption{show notes on second screen=right} % Both slides and notes
+
+\addbibresource{edbeamer-example.bib}
+
+\author[Eric Dong]{Wenhao (Eric) Dong}
+\title[Example talk]{A reusable Beamer talk}
+\subtitle{UoM colours and ED customizations}
+\institute{University of Melbourne \& OzGrav}
+\date{\today}
+
+\begin{document}
+\begin{frame}[plain,noframenumbering]
+  \titlepage
+\end{frame}
+
+\section{Overview}
+\miniframesoff
+\begin{frame}[noframenumbering]{Outline}
+  \tableofcontents
+\end{frame}
+\miniframeson
+
+\begin{frame}{Reusable slide elements}
+  \begin{myshadowbox}[colback=green!5]
+    A highlighted message with an optional background colour.
+  \end{myshadowbox}
+  \begin{itemize}
+    \item Serif mathematics: \(\bm{y}=\bm{A}\bm{x}\).
+      \begin{itemize}
+        \item A dash for a subitem.
+          \begin{itemize}
+            \item An asterisk for a deeper item.
+          \end{itemize}
+      \end{itemize}
+    \item Compact citations: \citet{example} and \citep{example}.
+  \end{itemize}
+  \begin{block}{A standard block}
+    The title uses the same UoM blue as the frame heading.
+  \end{block}
+\end{frame}
+
+\section{Summary}
+\begin{frame}{Tables and closing text}
+  \centering
+  \begin{tabular}{lc}
+    \toprule
+    Quantity & Value \\
+    \midrule
+    \multirow{2}{*}{Example} & 1 \\
+    & 2 \\
+    \bottomrule
+  \end{tabular}
+  \bigskip
+
+  {\Large\calligra Thanks for listening!}
+\end{frame}
+
+\begin{frame}[noframenumbering,allowframebreaks]{Bibliography}
+  \renewcommand*{\bibfont}{\tiny}
+  \printbibliography
+\end{frame}
+
+% appendixnumberbeamer keeps these frames out of the main talk's total.
+\appendix
+\section{Backup}
+\begin{frame}{Backup material}
+  Add supporting material here. Appendix numbering starts again at one.
+\end{frame}
+\end{document}
