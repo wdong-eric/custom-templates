@@ -1,0 +1,39 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{responseletter}[2026/10/29 Reusable referee response letter style]
+% Use with the article class; keep manuscript metadata and references in the .tex file.
+
+\RequirePackage[a4paper,margin=20mm]{geometry}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{natbib}
+\RequirePackage{graphicx}
+\RequirePackage{amsmath}
+\RequirePackage{bm}
+\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage[inline,shortlabels]{enumitem}
+\RequirePackage{subcaption}
+\RequirePackage{mathptmx,txfonts}
+\RequirePackage{hyperref}
+\hypersetup{colorlinks=true,allcolors=Aquamarine}
+
+% Explicit labels match the referee's numbering, including labels such as 2(a).
+\newenvironment{refereecomment}[1]
+  {\begin{enumerate}\item[#1.]\itshape\ignorespaces}
+  {\end{enumerate}}
+
+\newenvironment{authorresponse}
+  {\par\noindent\textbf{Authors' response:}\space\ignorespaces}
+  {\par}
+
+\newenvironment{manuscriptchange}
+  {\begin{quote}\color{blue}\ignorespaces}
+  {\end{quote}}
+
+% Use inside a figure, before its caption, without consuming a normal figure number.
+\newcommand{\figuretag}[1]{%
+  \addtocounter{figure}{-1}%
+  \renewcommand{\thefigure}{#1}%
+  \renewcommand{\theHfigure}{#1}%
+}
+\newcommand{\todo}[1]{{\color{red}~\textsf{[\textbf{TODO}: #1]}}}
+
+\endinput
